@@ -29,6 +29,8 @@ app.get('/api/employees', async (req, res) => {
     }
 });
 
+// TODO: add POST endpoint
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
