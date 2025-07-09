@@ -1,6 +1,7 @@
 const express = require("express");
-const { getEmployee } = require("./getEmployee");
+const { getEmployees } = require("./getEmployees");
 const { createEmployee } = require("./createEmployee");
+const { getSingleEmployee } = require("./getSingleEmployee");
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -18,7 +19,7 @@ app.get("/api/hello", (req, res) => {
 // Example endpoint that uses the database
 app.get("/api/employees", async (req, res) => {
   try {
-    const result = await getEmployee();
+    const result = await getEmployees();
     res.json(result);
   } catch (err) {
     console.error("Error fetching employees:", err);
@@ -29,18 +30,33 @@ app.get("/api/employees", async (req, res) => {
   }
 });
 
-// Post endpoint
-app.post("/api/employees", async (req, res) => {
+
+// single employee
+app.get("/api/employee/:employeeId", async (req, res) => {
   try {
-    const employees = req.body;
-
-    const result = await createEmployee(employees);
+    const result = await getSingleEmployee(req.params.employeeId);
     res.json(result);
-
-  } catch {
-    console.error("Error fetching employees:", err);
+  } catch (err) {
+    console.error("Error fetching employee:", err);
     res.status(500).json({
-      error: "Failed to fetch employees",
+      error: "Failed to fetch employee",
+      message: err.message,
+    });
+  }
+});
+
+
+
+// Post endpoint
+app.post("/api/employee", async (req, res) => {
+  try {
+    const employeeDTO = req.body;
+    const result = await createEmployee(employeeDTO);
+    res.json(result);
+  } catch (err) {
+    console.error("Error creating employee:", err);
+    res.status(500).json({
+      error: "Failed to create employee",
       message: err.message,
     });
   }
