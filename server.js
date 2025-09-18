@@ -2,6 +2,9 @@ const express = require("express");
 const { getEmployees } = require("./getEmployees");
 const { createEmployee } = require("./createEmployee");
 const { getSingleEmployee } = require("./getSingleEmployee");
+const { getSingleAddress } = require("./getSingleAddress");
+const { createEmployeeAddress } = require("./createEmployeeAddress");
+const { getSingleEmployeeAddresses } = require("./getSingleEmployeeAddresses");
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -16,7 +19,7 @@ app.get("/api/hello", (req, res) => {
   });
 });
 
-// Example endpoint that uses the database
+// get employees endpoint
 app.get("/api/employees", async (req, res) => {
   try {
     const result = await getEmployees();
@@ -30,8 +33,7 @@ app.get("/api/employees", async (req, res) => {
   }
 });
 
-
-// single employee
+// get single employee endpoint
 app.get("/api/employee/:employeeId", async (req, res) => {
   try {
     const result = await getSingleEmployee(req.params.employeeId);
@@ -45,9 +47,39 @@ app.get("/api/employee/:employeeId", async (req, res) => {
   }
 });
 
+// get employee addresses endpoint
+app.get("/api/employees/:employeeId/address", async (req, res) => {
+  try {
+    const result = await getSingleEmployeeAddresses(req.params.employeeId);
+    res.json(result);
+  } catch (err) {
+    console.error("Error fetching employee address:", err);
+    res.status(500).json({
+      error: "Failed to fetch employee address",
+      message: err.message,
+    });
+  }
+});
 
+// get employee single address endpoint
+app.get("/api/employees/:employeeId/address/:addressId", async (req, res) => {
+  try {
+    const result = await getSingleAddress(
+      req.params.employeeId,
+      req.params.addressId
+    );
+    res.json(result);
+  } catch (err) {
+    console.error("Error fetching single address:", err);
+    res.status(500).json({
+      error: "Failed to fetch single address",
+      message: err.message,
+    });
+  }
+});
 
 // Post endpoint
+// Create a new employee
 app.post("/api/employee", async (req, res) => {
   try {
     const employeeDTO = req.body;
@@ -57,6 +89,22 @@ app.post("/api/employee", async (req, res) => {
     console.error("Error creating employee:", err);
     res.status(500).json({
       error: "Failed to create employee",
+      message: err.message,
+    });
+  }
+});
+
+// Create a new employee address
+app.post("/api/employee/:employeeId/address", async (req, res) => {
+  try {
+    const employeeId = req.params.employeeId;
+    const addressDTO = req.body;
+    const result = await createEmployeeAddress(employeeId, addressDTO);
+    res.json(result);
+  } catch (err) {
+    console.error("Error creating employee address:", err);
+    res.status(500).json({
+      error: "Failed to create employee address",
       message: err.message,
     });
   }
