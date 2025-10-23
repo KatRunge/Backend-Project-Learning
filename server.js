@@ -19,7 +19,83 @@ app.get("/api/hello", (req, res) => {
   });
 });
 
-// get employees endpoint
+/**
+ * @openapi
+ * /api/employees:
+ *   get:
+ *     tags:
+ *       - Employees
+ *     summary: Get all employees with their addresses
+ *     description: Retrieves a list of all employees joined with their address information
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved list of employees with addresses
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                     format: uuid
+ *                     description: Employee unique identifier
+ *                     example: "a9156a50-5136-4cb9-bf16-589ba6c8e81a"
+ *                   name:
+ *                     type: string
+ *                     description: Employee full name
+ *                     example: "Juan"
+ *                   position:
+ *                     type: string
+ *                     description: Employee job position
+ *                     example: "Backend Engineer"
+ *                   age:
+ *                     type: string
+ *                     description: Employee age
+ *                     example: "37"
+ *                   nationality:
+ *                     type: string
+ *                     description: Employee nationality
+ *                     example: "Mexican"
+ *                   gender:
+ *                     type: string
+ *                     description: Employee gender
+ *                     example: "masculine"
+ *                   street:
+ *                     type: string
+ *                     description: Address street name
+ *                     example: "Stresemannstraße"
+ *                   house_number:
+ *                     type: string
+ *                     description: Address house number
+ *                     example: "375"
+ *                   postal_code:
+ *                     type: string
+ *                     description: Address postal code
+ *                     example: "22761"
+ *                   city:
+ *                     type: string
+ *                     description: Address city
+ *                     example: "Hamburg"
+ *                   country:
+ *                     type: string
+ *                     description: Address country
+ *                     example: "Germany"
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Failed to fetch employees"
+ *                 message:
+ *                   type: string
+ *                   example: "Database connection error"
+ */
 app.get("/api/employees", async (req, res) => {
   try {
     const result = await getEmployees();
