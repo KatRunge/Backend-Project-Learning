@@ -1,11 +1,17 @@
+import { EmployeeForm } from "./components/EmployeeForm/EmployeeForm";
 
 export const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Forms to create new employees or addresses</h1>
+        <h1>Select a form</h1>
+
         <div className="counter-section">
-          <div className="button-group"></div>
+          <EmployeeForm />
+          <div className="button-group">
+            <button className="button">Create Employee</button>
+            <button className="button">Create Address</button>
+          </div>
         </div>
       </header>
     </div>
