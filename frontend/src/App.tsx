@@ -1,3 +1,4 @@
+import { AddressForm } from "./components/AddressForm/AddressForm";
 import { EmployeeForm } from "./components/EmployeeForm/EmployeeForm";
 
 export const App = () => {
@@ -8,6 +9,7 @@ export const App = () => {
 
         <div className="counter-section">
           <EmployeeForm />
+          <AddressForm />
           <div className="button-group">
             <button className="button">Create Employee</button>
             <button className="button">Create Address</button>
