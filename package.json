@@ -7,7 +7,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "generate:openapi": "node generate-openapi-spec.js",
-    "generate:client": "openapi-generator-cli generate -i openapi.json -g typescript-axios -o ./generated-client --additional-properties=npmName=@myapp/api-client,supportsES6=true,withSeparateModelsAndApi=true"
+    "generate:client": "openapi-generator-cli generate -i spec.json -g typescript-axios -o ./generated-client --additional-properties=npmName=@myapp/api-client,supportsES6=true,withSeparateModelsAndApi=true,apiPackage=services,modelPackage=types"
   },
   "dependencies": {
     "dotenv": "^16.3.1",
@@ -17,6 +17,7 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.25.0",
     "nodemon": "^3.0.2"
   }
 }
