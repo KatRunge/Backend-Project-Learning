@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 const { getEmployees } = require("./getEmployees");
 const { createEmployee } = require("./createEmployee");
 const { getSingleEmployee } = require("./getSingleEmployee");
@@ -6,10 +7,16 @@ const { getSingleAddress } = require("./getSingleAddress");
 const { createEmployeeAddress } = require("./createEmployeeAddress");
 const { getSingleEmployeeAddresses } = require("./getSingleEmployeeAddresses");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 // Middleware for parsing JSON bodies
 app.use(express.json());
+
+const corsOptions = {
+  origin: ['http://localhost:3000', 'https://example.com'],
+};
+
+app.use(cors(corsOptions));
 
 // Basic GET endpoint
 app.get("/api/hello", (req, res) => {
