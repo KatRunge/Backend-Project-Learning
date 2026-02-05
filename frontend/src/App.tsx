@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { AddressForm } from "./components/AddressForm/AddressForm";
 import { EmployeeForm } from "./components/EmployeeForm/EmployeeForm";
+import { EmployeesList } from "./components/EmployeesList/EmployeesList";
 
 export const App = () => {
   return (
@@ -14,6 +16,7 @@ export const App = () => {
             <button className="button">Create Employee</button>
             <button className="button">Create Address</button>
           </div>
+          <EmployeesList />
         </div>
       </header>
     </div>
